@@ -1,0 +1,6 @@
+# Google services that may safely use the subscriber's direct connection.
+# Advertising entries are excluded at build time. YouTube and Google Play are
+# still present through upstream includes, but explicit PROXY rules are matched
+# first because the Happ profile uses block-proxy-direct.
+include:google @-ads
+

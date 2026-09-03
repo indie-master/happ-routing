@@ -1,0 +1,64 @@
+name: Roll back Happ profile
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing validated release tag to restore
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: happ-geodata-release
+  cancel-in-progress: false
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate requested release
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git rev-parse --verify --quiet "refs/tags/${RELEASE_TAG}" >/dev/null; then
+            echo "Unknown release tag: ${RELEASE_TAG}" >&2
+            exit 1
+          fi
+          base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${RELEASE_TAG}/release"
+          curl -fsSIL --retry 6 --retry-delay 5 --retry-all-errors "${base}/geoip.dat" >/dev/null
+          curl -fsSIL --retry 6 --retry-delay 5 --retry-all-errors "${base}/geosite.dat" >/dev/null
+
+      - name: Point profiles to the previous geodata
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/generate_release.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --tag "$RELEASE_TAG" \
+            --timestamp "$(date -u +%s)" \
+            --profiles-only
+
+      - name: Commit rollback profile
+        env:
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add HAPP
+          git commit -m "rollback: point Happ profile to ${RELEASE_TAG}"
+          git push origin HEAD:main
+

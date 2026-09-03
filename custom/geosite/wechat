@@ -1,0 +1,39 @@
+# WeChat / Weixin domains. Kept deliberately narrower than geosite:tencent so
+# unrelated Tencent Cloud, games and media services are not forced to DIRECT.
+# Sources: v2fly/domain-list-community, blackmatrix7/ios_rule_script and local
+# endpoints observed in production.
+full:apd-pcdnwxlogin.teg.tencent-cloud.net
+full:btrace.qq.com
+full:dldir1.qq.com
+full:slife.xy-asia.com
+full:soup.v.qq.com
+full:vweixinf.tc.qq.com
+full:weixin110.qq.com
+full:wup.imtt.qq.com
+iot-tencent.com
+lbs.gtimg.com
+map.qq.com
+qlogo.cn
+qpic.cn
+servicewechat.com
+tenpay.com
+up-hl.3g.qq.com
+vweixinthumb.tc.qq.com
+wechat.com
+wechatlegal.net
+wechatos.net
+wechatpay.cn
+wechatpay.com
+weixin.com
+weixin.qq.com
+weixinbridge.com
+weixinsxy.com
+wx.gtimg.com
+wx.qq.com
+wxapp.tc.qq.com
+wxcloudrun.com
+wxgateway.com
+wxlivecdn.com
+wxs.qq.com
+yun-hl.3g.qq.com
+

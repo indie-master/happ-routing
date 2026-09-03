@@ -1,0 +1,142 @@
+name: Build and publish Happ geodata
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 3 * * *"
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "HAPP/**"
+      - "release/**"
+      - "README.md"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: happ-geodata-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Checkout current community domain lists
+        uses: actions/checkout@v6
+        with:
+          repository: v2fly/domain-list-community
+          path: .upstream/domain-list-community
+          fetch-depth: 1
+
+      - name: Checkout current RoscomVPN geosite lists
+        uses: actions/checkout@v6
+        with:
+          repository: hydraponique/roscomvpn-geosite
+          ref: master
+          path: .upstream/roscomvpn-geosite
+          fetch-depth: 1
+
+      - name: Checkout current RoscomVPN GeoIP exports
+        uses: actions/checkout@v6
+        with:
+          repository: hydraponique/roscomvpn-geoip
+          ref: master
+          path: .upstream/roscomvpn-geoip
+          fetch-depth: 1
+
+      - name: Checkout GeoIP builder
+        uses: actions/checkout@v6
+        with:
+          repository: Loyalsoldier/geoip
+          path: .upstream/geoip-builder
+          fetch-depth: 1
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: stable
+          cache: false
+
+      - name: Define immutable release version
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "RELEASE_TAG=$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_ENV"
+          echo "RELEASE_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
+
+      - name: Build geosite.dat and geoip.dat
+        run: ./scripts/build_geodata.sh
+
+      - name: Generate checksums, manifest and Happ deeplinks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/generate_release.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --tag "$RELEASE_TAG" \
+            --timestamp "$RELEASE_EPOCH" \
+            --v2fly-sha "$(git -C .upstream/domain-list-community rev-parse HEAD)" \
+            --roscom-geosite-sha "$(git -C .upstream/roscomvpn-geosite rev-parse HEAD)" \
+            --roscom-geoip-sha "$(git -C .upstream/roscomvpn-geoip rev-parse HEAD)" \
+            --geoip-builder-sha "$(git -C .upstream/geoip-builder rev-parse HEAD)"
+
+      - name: Install geodata validator
+        shell: bash
+        run: |
+          set -euo pipefail
+          go install github.com/urlesistiana/v2dat@47b8ee51fb528e11e1a83453b7e767a18d20d1f7
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: Validate artifacts and routing invariants
+        run: ./scripts/validate_release.sh
+
+      - name: Commit generated release and tag it
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add HAPP release
+          git commit -m "build: release ${RELEASE_TAG}"
+          git tag "$RELEASE_TAG"
+          git push origin HEAD:main "$RELEASE_TAG"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$RELEASE_TAG" \
+            --verify-tag \
+            --title "$RELEASE_TAG" \
+            --notes "Automated validated Happ geodata release." \
+            release/geoip.dat \
+            release/geoip.dat.sha256 \
+            release/geosite.dat \
+            release/geosite.dat.sha256 \
+            release/manifest.json \
+            HAPP/DEFAULT.JSON \
+            HAPP/DEFAULT.DEEPLINK \
+            HAPP/CANARY.JSON \
+            HAPP/CANARY.DEEPLINK
+
+      - name: Confirm CDN availability
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://cdn.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${RELEASE_TAG}/release"
+          for file in geoip.dat geosite.dat; do
+            curl -fsSIL --retry 12 --retry-delay 10 --retry-all-errors \
+              "${base}/${file}" >/dev/null
+          done
+

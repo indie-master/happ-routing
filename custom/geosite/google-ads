@@ -1,0 +1,4 @@
+# Keep Google advertising endpoints away from DIRECT. Some upstream entries
+# are duplicated with non-ads attributes, so this category is evaluated by
+# Happ in the proxy group before google-direct.
+include:google @ads
