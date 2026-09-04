@@ -33,10 +33,10 @@ mkdir -p "$tmp/geoip" "$tmp/geosite"
   -f torrent -f category-ads \
   "$ROOT/release/geosite.dat"
 
-rg -q '101\.32\.104\.4/32' "$tmp/geoip"
-rg -qi 'wechat\.com' "$tmp/geosite"
-rg -qi 'google\.com' "$tmp/geosite"
-rg -qi 'doubleclick\.net' "$tmp/geosite"
+grep -Rqs '101\.32\.104\.4/32' "$tmp/geoip"
+grep -Rqis 'wechat\.com' "$tmp/geosite"
+grep -Rqis 'google\.com' "$tmp/geosite"
+grep -Rqis 'doubleclick\.net' "$tmp/geosite"
 
 (
   cd "$ROOT"
