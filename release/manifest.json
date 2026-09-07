@@ -9,12 +9,12 @@
       "size": 2107847
     }
   },
-  "lastUpdated": "1788681925",
+  "lastUpdated": "1788770164",
   "sources": {
     "Loyalsoldier/geoip": "1503074d8aee4c623791210e90c04d586c86c8f7",
     "hydraponique/roscomvpn-geoip": "9c1c34daa8222d0ee8785dd5225f91051221e4d9",
     "hydraponique/roscomvpn-geosite": "8e77ecb1162be9bbc8355c2cd45dd6772f1a1627",
     "v2fly/domain-list-community": "9ff2d61d76ce28edb513920a2727f222793041c0"
   },
-  "tag": "20260906080525"
+  "tag": "20260907083604"
 }
