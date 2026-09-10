@@ -1,20 +1,20 @@
 {
   "files": {
     "geoip.dat": {
-      "sha256": "16f6bdfab251f9fc8c058ecc93ac82615db646cf8e7f6090bc28fac33fc59ee8",
-      "size": 430468
+      "sha256": "c1442c55a18a2a3346919b0f79c4deb1fa2c993db165813dd7f7cfddb3708039",
+      "size": 430608
     },
     "geosite.dat": {
       "sha256": "1c7b8c76646b057542c67b510db31feefa5efa6b1b7e6fd13bc5e7a59e3400cd",
       "size": 2108058
     }
   },
-  "lastUpdated": "1788942082",
+  "lastUpdated": "1789028517",
   "sources": {
     "Loyalsoldier/geoip": "1503074d8aee4c623791210e90c04d586c86c8f7",
-    "hydraponique/roscomvpn-geoip": "6be2e4722f57650ed4b586e1b558b4bdf2ec2da3",
+    "hydraponique/roscomvpn-geoip": "dfd52f3fc01e6f0dbab9d3b01f29401b2541eb56",
     "hydraponique/roscomvpn-geosite": "8e77ecb1162be9bbc8355c2cd45dd6772f1a1627",
     "v2fly/domain-list-community": "5d939545c84e2a534f8e85ba6ffb2b51fa18fb76"
   },
-  "tag": "20260909082122"
+  "tag": "20260910082157"
 }
