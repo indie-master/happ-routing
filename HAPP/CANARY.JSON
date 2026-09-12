@@ -10,9 +10,9 @@
   "DomesticDNSType": "DoH",
   "DomesticDNSDomain": "https://common.dot.dns.yandex.net/dns-query",
   "DomesticDNSIP": "77.88.8.8",
-  "Geoipurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260911081607/release/geoip.dat",
-  "Geositeurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260911081607/release/geosite.dat",
-  "LastUpdated": "1789114567",
+  "Geoipurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260912080622/release/geoip.dat",
+  "Geositeurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260912080622/release/geosite.dat",
+  "LastUpdated": "1789200382",
   "DnsHosts": {
     "dns.google": "8.8.8.8",
     "common.dot.dns.yandex.net": "77.88.8.8",
