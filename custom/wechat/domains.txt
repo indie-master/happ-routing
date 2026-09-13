@@ -1,0 +1,16 @@
+# Local WeChat additions merged with blackmatrix7 on every build.
+# v2fly/domain-list-community syntax is accepted here.
+wechat.me
+wechatlegal.cn
+wechatlegal.com
+wechatpay-global.com
+wechatpay.cn
+wechatpay.com.hk
+wechatpay.com.my
+weixinbridge.com
+wxcloudrun.com
+wxgateway.com
+wxlivecdn.com
+mmbizurl.cn
+wxmpurl.cn
+wxaurl.cn

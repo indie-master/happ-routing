@@ -1,5 +1,5 @@
-# Known WeChat endpoints from the previously deployed Happ profile.
-# AS132203 is intentionally not expanded here: it covers much more than WeChat.
+# Endpoints observed in the previously deployed profile. The build also
+# imports maintained IPv4/IPv6 WeChat ranges from blackmatrix7.
 101.32.104.4/32
 101.32.104.41/32
 101.32.104.56/32
@@ -9,4 +9,3 @@
 101.32.133.209/32
 129.226.3.47/32
 129.226.107.244/32
-

@@ -2,6 +2,11 @@ name: Build and publish Happ geodata
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths-ignore:
+      - "HAPP/**"
+      - "release/**"
+      - "README.md"
   schedule:
     - cron: "37 3 * * *"
   push:
@@ -60,6 +65,18 @@ jobs:
           path: .upstream/geoip-builder
           fetch-depth: 1
 
+      - name: Checkout maintained WeChat rules
+        uses: actions/checkout@v6
+        with:
+          repository: blackmatrix7/ios_rule_script
+          ref: master
+          path: .upstream/ios-rule-script
+          fetch-depth: 1
+          sparse-checkout: |
+            rule/QuantumultX/WeChat/WeChat.list
+            rule/Surge/WeChat/WeChat_Resolve.list
+          sparse-checkout-cone-mode: false
+
       - name: Set up Go
         uses: actions/setup-go@v6
         with:
@@ -87,7 +104,8 @@ jobs:
             --v2fly-sha "$(git -C .upstream/domain-list-community rev-parse HEAD)" \
             --roscom-geosite-sha "$(git -C .upstream/roscomvpn-geosite rev-parse HEAD)" \
             --roscom-geoip-sha "$(git -C .upstream/roscomvpn-geoip rev-parse HEAD)" \
-            --geoip-builder-sha "$(git -C .upstream/geoip-builder rev-parse HEAD)"
+            --geoip-builder-sha "$(git -C .upstream/geoip-builder rev-parse HEAD)" \
+            --wechat-rules-sha "$(git -C .upstream/ios-rule-script rev-parse HEAD)"
 
       - name: Install geodata validator
         shell: bash
@@ -100,6 +118,7 @@ jobs:
         run: ./scripts/validate_release.sh
 
       - name: Commit generated release and tag it
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -111,6 +130,7 @@ jobs:
           git push origin HEAD:main "$RELEASE_TAG"
 
       - name: Publish GitHub Release
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -128,9 +148,12 @@ jobs:
             HAPP/DEFAULT.JSON \
             HAPP/DEFAULT.DEEPLINK \
             HAPP/CANARY.JSON \
-            HAPP/CANARY.DEEPLINK
+            HAPP/CANARY.DEEPLINK \
+            HAPP/LEGACY.JSON \
+            HAPP/LEGACY.DEEPLINK
 
       - name: Confirm CDN availability
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -139,4 +162,3 @@ jobs:
             curl -fsSIL --retry 12 --retry-delay 10 --retry-all-errors \
               "${base}/${file}" >/dev/null
           done
-

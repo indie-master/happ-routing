@@ -1,0 +1,4 @@
+# Use the subscriber's own IP for ordinary Google services. Advertising is
+# excluded here; YouTube, Google Play and geo-restricted Google services have
+# explicit PROXY rules which are evaluated first.
+include:google @-ads
