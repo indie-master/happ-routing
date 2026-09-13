@@ -1,0 +1,3 @@
+# Google advertising endpoints are evaluated in PROXY before the broader
+# Google DIRECT group.
+include:google @ads

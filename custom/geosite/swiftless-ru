@@ -1,0 +1,7 @@
+# One stable Swiftless tag for Russian services. `category-ru` is the full
+# v2fly community category, `swiftless-ru-extra` is RoscomVPN's curated
+# category (renamed during source preparation), and `whitelist` contains
+# Russian services hosted outside Russian TLDs/networks.
+include:category-ru
+include:swiftless-ru-extra
+include:whitelist

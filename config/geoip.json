@@ -4,8 +4,8 @@
       "type": "text",
       "action": "add",
       "args": {
-        "name": "direct",
-        "uri": "./direct.txt"
+        "name": "swiftless-ru",
+        "uri": "./swiftless-ru.txt"
       }
     },
     {
@@ -20,16 +20,16 @@
       "type": "text",
       "action": "add",
       "args": {
-        "name": "whitelist",
-        "uri": "./whitelist.txt"
+        "name": "swiftless-ru-whitelist",
+        "uri": "./swiftless-ru-whitelist.txt"
       }
     },
     {
       "type": "text",
       "action": "add",
       "args": {
-        "name": "wechat",
-        "uri": "./wechat.txt"
+        "name": "swiftless-wechat",
+        "uri": "./swiftless-wechat.txt"
       }
     }
   ],
@@ -44,4 +44,3 @@
     }
   ]
 }
-
