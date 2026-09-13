@@ -1,5 +1,5 @@
 {
-  "Name": "swiftless-routing",
+  "Name": "RoscomVPN",
   "GlobalProxy": "true",
   "RouteOrder": "block-proxy-direct",
   "RemoteDns": "8.8.8.8",
