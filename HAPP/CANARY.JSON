@@ -10,9 +10,9 @@
   "DomesticDNSType": "DoU",
   "DomesticDNSDomain": "",
   "DomesticDNSIP": "77.88.8.8",
-  "Geoipurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260921091517/release/geoip.dat",
-  "Geositeurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260921091517/release/geosite.dat",
-  "LastUpdated": "1789982117",
+  "Geoipurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260922084635/release/geoip.dat",
+  "Geositeurl": "https://cdn.jsdelivr.net/gh/indie-master/happ-routing@20260922084635/release/geosite.dat",
+  "LastUpdated": "1790066795",
   "DnsHosts": {
     "dns.google": "8.8.8.8",
     "lkfl2.nalog.ru": "213.24.64.175",
