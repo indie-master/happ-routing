@@ -1,21 +1,21 @@
 {
   "files": {
     "geoip.dat": {
-      "sha256": "07f66481e8968a404bdb4f7220f088de4f979eaa36ef19ecb9a3ab162646b665",
-      "size": 440031
+      "sha256": "acbb2d06ec7fda7489c1213c85203f6af2ca54a8ade6f5a6ac8829bd674980ae",
+      "size": 439995
     },
     "geosite.dat": {
-      "sha256": "85b59f42522b6f87e69f884d9bc611f372b3456661f03db2c07058e4f99791b9",
-      "size": 2203714
+      "sha256": "39d82afa67be2a873e32ea8d3e7382b821d3963ada8d271f6cdbe7d7d01d540f",
+      "size": 2209581
     }
   },
-  "lastUpdated": "1792659177",
+  "lastUpdated": "1792745265",
   "sources": {
-    "Loyalsoldier/geoip": "61f6e64f54cb088822b01afe714f73b503dd5742",
+    "Loyalsoldier/geoip": "084eb113e458b82374919dabefbc49cd2c2dd079",
     "blackmatrix7/ios_rule_script": "f9e403a75bbc4bee939c6d8dd766cf78f1b512f3",
-    "hydraponique/roscomvpn-geoip": "a1b4947ae5c73c7183baf61c6077dc86e549721a",
+    "hydraponique/roscomvpn-geoip": "a278dc61ba4bc0ce2f020306fe97205fae7deaa0",
     "hydraponique/roscomvpn-geosite": "300324058785ffab06df8725e18969f835d73618",
-    "v2fly/domain-list-community": "5b6a77d14fb904a1255f02e2e1b2bcc36ed31f83"
+    "v2fly/domain-list-community": "597956ad5d1c063d80329d58a6aaadf6dcec43a7"
   },
-  "tag": "20261022085257"
+  "tag": "20261023084745"
 }
